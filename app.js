@@ -17,12 +17,11 @@ app.set("layout", "./layout/main");
 app.set("view engine", "ejs");
 
 // Home route
-app.get("/", (req, res) => {
-  const locals = {
-    title: "Nodejs",
-    description: "Nodejs free management system app",
-  };
-  res.render("index", locals);
+app.use("/", require("./server/routes/customer"));
+
+// 404 page
+app.get("*", (req, res) => {
+  res.status(404).render("404", { layout: false });
 });
 
 app.listen(port, () => {
