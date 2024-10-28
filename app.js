@@ -13,12 +13,16 @@ app.use(express.static("public"));
 
 // Templating Engine
 app.use(expressLayout);
-app.set("layout", "./layout/main"); // Corrected line
+app.set("layout", "./layout/main");
 app.set("view engine", "ejs");
 
 // Home route
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  const locals = {
+    title: "Nodejs",
+    description: "Nodejs free management system app",
+  };
+  res.render("index", locals);
 });
 
 app.listen(port, () => {
