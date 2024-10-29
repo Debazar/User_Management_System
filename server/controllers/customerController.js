@@ -60,3 +60,21 @@ exports.postCustomer = async (req, res) => {
     res.status(500).send("An error occurred while saving the customer.");
   }
 };
+
+exports.view = async (req, res) => {
+  try {
+    const customer = await Customer.findOne({ _id: req.params.id });
+
+    const locals = {
+      title: "View Customer Details",
+      description: "Free NodeJs User Management System",
+    };
+
+    res.render("customer/view", {
+      locals,
+      customer,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
