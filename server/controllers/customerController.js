@@ -101,18 +101,27 @@ exports.editPost = async (req, res) => {
   try {
     await Customer.findByIdAndUpdate(req.params.id, {
       firstname: req.body.firstname,
-      lastname: req.body.lastName, // Correct 'lastName' spelling in req.body as needed
+      lastname: req.body.lastName,
       tel: req.body.tel,
       email: req.body.email,
       details: req.body.details,
       updatedAt: Date.now(),
     });
 
-    res.redirect(`/edit/${req.params.id}`); // Corrected string interpolation
+    res.redirect(`/edit/${req.params.id}`);
 
     console.log("Redirected successfully");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error"); // Optional: Send error response to client
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+exports.deleteCustomer = async (req, res) => {
+  try {
+    await Customer.deleteOne({ _id: req.params.id });
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
   }
 };
